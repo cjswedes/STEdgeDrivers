@@ -1,0 +1,5 @@
+name: 'Cosock Test'
+packageKey: 'cosock-test'
+permissions:
+  lan: {}
+  discovery: {}
