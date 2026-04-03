@@ -1,0 +1,5 @@
+name: 'Coroutine Error Generator'
+packageKey: 'coroutine-error-generator'
+permissions:
+  lan: {}
+  discovery: {}
