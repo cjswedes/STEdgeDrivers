@@ -1,0 +1,5 @@
+name: 'Lan Simple'
+packageKey: 'lan-simple'
+permissions:
+  lan: {}
+  discovery: {}
