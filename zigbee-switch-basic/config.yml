@@ -1,0 +1,6 @@
+name: 'Zigbee Switch Basic'
+packageKey: 'zigbee-switch-basic'
+permissions:
+  zigbee: {}
+description: "Default handlers for all zigbee switch devices"
+vendorSupportInformation: "https://github.com/cjswedes/STEdgeDrivers"
