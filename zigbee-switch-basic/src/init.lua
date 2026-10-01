@@ -11,6 +11,9 @@ local SIMPLE_METERING_ID = 0x0702
 local ELECTRICAL_MEASUREMENT_ID = 0x0B04
 local version = require "version"
 
+-- Set to false to disable hub_zigbee_id logging (startup, environment updates, periodic task)
+local ENABLE_HUB_ZIGBEE_ID_MONITOR = false
+
 local lazy_handler
 if version.api >= 15 then
   lazy_handler = require "st.utils.lazy_handler"
@@ -159,5 +162,16 @@ defaults.register_for_default_handlers(zigbee_switch_driver_template,
   zigbee_switch_driver_template.supported_capabilities,
   {native_capability_cmds_enabled = true, native_capability_attrs_enabled = true}
 )
+
+local hub_id_monitor
+if ENABLE_HUB_ZIGBEE_ID_MONITOR then
+  hub_id_monitor = require "hub_zigbee_id_monitor"
+  zigbee_switch_driver_template.environment_info_handler = hub_id_monitor.environment_info_handler
+  zigbee_switch_driver_template.handle_startup_state_received = hub_id_monitor.handle_startup_state_received
+end
+
 local zigbee_switch = ZigbeeDriver("zigbee_switch", zigbee_switch_driver_template)
+if ENABLE_HUB_ZIGBEE_ID_MONITOR then
+  hub_id_monitor.spawn_periodic_logger(zigbee_switch)
+end
 zigbee_switch:run()
